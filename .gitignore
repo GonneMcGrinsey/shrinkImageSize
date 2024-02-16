@@ -1,0 +1,5 @@
+/node_modules
+sourceImages/*
+!sourceImages/.gitkeep
+resizedImages/*
+!resizedImages/.gitkeep
