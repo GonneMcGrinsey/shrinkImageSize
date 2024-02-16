@@ -4,7 +4,7 @@ const sharp = require('sharp');
 
 const sourceDir = './sourceImages';
 const destinationDir = './resizedImages';
-const MAX_SIZE = 150 * 1024; // 150 KB in Bytes
+const MAX_SIZE = 220 * 1024; // 150 KB in Bytes
 
 // Ensure the destination directory exists
 if (!fs.existsSync(destinationDir)) {
@@ -18,7 +18,7 @@ const compressImageWithMaxSize = (inputPath, outputPath) => {
 
     const compressAndCheck = () => {
         return sharp(inputPath)
-            .webp({ quality: currentQuality })
+            .jpeg({ quality: currentQuality })
             .toBuffer()
             .then(buffer => {
                 if (buffer.length > MAX_SIZE && currentQuality > 10) {
@@ -36,7 +36,7 @@ const compressImageWithMaxSize = (inputPath, outputPath) => {
 if (files.length > 0) {
     const processFiles = files.filter(file => ['.jpg', '.png'].includes(path.extname(file).toLowerCase())).map(file => {
         const filePath = path.join(sourceDir, file);
-        const outputPath = path.join(destinationDir, `${path.basename(file, path.extname(file))}.webp`);
+        const outputPath = path.join(destinationDir, `${path.basename(file, path.extname(file))}.jpg`);
         return compressImageWithMaxSize(filePath, outputPath).catch(err => {
             console.error(`Error processing ${file}:`, err);
         });
